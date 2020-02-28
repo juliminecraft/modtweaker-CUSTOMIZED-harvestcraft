@@ -1,0 +1,18 @@
+[
+    {
+      "modid": "modtweaker-CUSTOMIZED-harvestcraft",
+      "name": "Mod Tweaker CUSTOMIZED harvestcraft",
+      "description": "ModTweaker is an addon for CraftTweaker, a recipe manipulator utility for Minecraft. It allows you to modify the recipes of other mods that add their own crafting mechanics",
+      "version": "${version}",
+      "mcversion": "${mcversion}",
+      "url": "https://minecraft.curseforge.com/projects/ModTweaker",
+      "updateUrl": "https://minecraft.curseforge.com/projects/ModTweaker/files",
+      "authorList": [
+        "Jaredlll08, juliminecraft"
+      ],
+      "credits": "Joshie and SpitefulFox for writing ModTweaker, Yulife for documentation.",
+      "logoFile": "",
+      "screenshots": [],
+      "dependencies": []
+    }
+]
