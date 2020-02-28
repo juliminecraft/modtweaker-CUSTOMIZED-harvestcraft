@@ -15,21 +15,21 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import com.pam.harvestcraft.tileentities.MarketData;
-import com.pam.harvestcraft.tileentities.MarketItems;
+import com.pam.harvestcraft.tileentities.ShippingBinData;
+import com.pam.harvestcraft.tileentities.ShippingBinItems;
 import net.minecraft.item.ItemStack;
 
 
-@ZenClass("mods.harvestcraft.Market")
+@ZenClass("mods.harvestcraft.ShippingBin")
 @ModOnly("harvestcraft")
 @ZenRegister
-public class Market extends MarketItems {
+public class ShippingBin extends ShippingBinItems {
 
-    protected static final String name = "HarvestCraft Market";
+    protected static final String name = "HarvestCraft ShippingBin";
 
     @ZenMethod
     public static void add(IItemStack input, IItemStack currency, int price) {
-        MarketData recipe = new MarketData(toStack(input), toStack(currency), price);
+        ShippingBinData recipe = new ShippingBinData(toStack(input), toStack(currency), price);
         ModTweaker.LATE_ADDITIONS.add(new Add(items, recipe));
     }
     
@@ -43,9 +43,9 @@ public class Market extends MarketItems {
         ModTweaker.LATE_REMOVALS.add(new RemoveAll(items));
     }
 
-    private static class Add extends BaseListAddition<MarketData>{
-        public Add(List<MarketData> recipeList, MarketData recipe) {
-            super(Market.name, recipeList);
+    private static class Add extends BaseListAddition<ShippingBinData>{
+        public Add(List<ShippingBinData> recipeList, ShippingBinData recipe) {
+            super(ShippingBin.name, recipeList);
             this.recipes.add(recipe);
         }
 
@@ -56,22 +56,22 @@ public class Market extends MarketItems {
         }
         
         @Override
-        public String getRecipeInfo(MarketData recipe) {
+        public String getRecipeInfo(ShippingBinData recipe) {
             return LogHelper.getStackDescription(recipe.getItem());
         }
     }
 
-    private static class Remove extends BaseListRemoval<MarketData> {
+    private static class Remove extends BaseListRemoval<ShippingBinData> {
         private ItemStack input;
         
-        protected Remove(List<MarketData> recipeList, ItemStack input) {
-            super(Market.name, recipeList);
+        protected Remove(List<ShippingBinData> recipeList, ItemStack input) {
+            super(ShippingBin.name, recipeList);
             this.input = input;
         }
         
         @Override
         public void apply() {
-            for(MarketData recipe : this.list) {
+            for(ShippingBinData recipe : this.list) {
                 if(recipe.getItem().equals(input)) {
                     recipes.add(recipe);
                     items.remove(recipe);
@@ -81,25 +81,25 @@ public class Market extends MarketItems {
         }
         
         @Override
-        protected String getRecipeInfo(MarketData recipe) {
+        protected String getRecipeInfo(ShippingBinData recipe) {
             return LogHelper.getStackDescription(recipe.getItem());
         }
     }
 
-    private static class RemoveAll extends BaseListRemoval<MarketData> {
-        protected RemoveAll(List<MarketData> recipeList) {
-            super(Market.name, recipeList);
+    private static class RemoveAll extends BaseListRemoval<ShippingBinData> {
+        protected RemoveAll(List<ShippingBinData> recipeList) {
+            super(ShippingBin.name, recipeList);
             this.recipes.addAll(recipeList);
         }
 
         @Override
         public void apply(){
             items.clear();
-            CraftTweakerAPI.getLogger().logInfo("Removed all "+Market.name+"recipies");
+            CraftTweakerAPI.getLogger().logInfo("Removed all "+ShippingBin.name+"recipies");
         } 
 
         @Override
-        protected String getRecipeInfo(MarketData recipe) {
+        protected String getRecipeInfo(ShippingBinData recipe) {
             return LogHelper.getStackDescription(recipe.getItem());
         }
     }
