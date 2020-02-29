@@ -26,6 +26,8 @@ import net.minecraft.item.ItemStack;
 public class Market extends MarketItems {
 
     protected static final String name = "HarvestCraft Market";
+    private ArrayList<MarketData> additions = new ArrayList<MarketData>();
+    private ArrayList<MarketData> removals = new ArrayList<MarketData>();
     
     @ZenMethod
     public static void addAll(IOreDictEntry oredictentry, IItemStack currency, int price){
@@ -35,17 +37,17 @@ public class Market extends MarketItems {
     @ZenMethod
     public static void add(IItemStack output, IItemStack currency, int price) {
         MarketData recipe = new MarketData(toStack(output), toStack(currency), price);
-        ModTweaker.LATE_ADDITIONS.add(new Add(items, recipe));
+        ModTweaker.LATE_ADDITIONS.add(new Add(createList(), recipe));
     }
     
     @ZenMethod
     public static void remove(IItemStack output) {
-        ModTweaker.LATE_REMOVALS.add(new Remove(items, toStack(output)));
+        ModTweaker.LATE_REMOVALS.add(new Remove(createList(), toStack(output)));
     }
 
     @ZenMethod
     public static void removeAll() {
-        ModTweaker.LATE_REMOVALS.add(new RemoveAll(items));
+        ModTweaker.LATE_REMOVALS.add(new RemoveAll(createList()));
     }
 
     private static class Add extends BaseListAddition<MarketData>{
@@ -76,13 +78,11 @@ public class Market extends MarketItems {
         
         @Override
         public void apply() {
-            ArrayList<MarketData> newList = new ArrayList<MarketData>();
             for(MarketData marketData : this.list) {
                 if(!marketData.getItem().getItem().equals(output.getItem())) {
-                    newList.add(marketData);
+                    items.remove(marketData);
                 }
             }
-            items = newList;
         }
         
         @Override
@@ -111,5 +111,13 @@ public class Market extends MarketItems {
         protected String getRecipeInfo(MarketData marketData) {
             return marketData.getItem().getDisplayName();
         }
+    }
+
+    
+    private static List<MarketData> createList()
+    {
+        List<MarketData> list = new ArrayList<>();
+        items.forEach(m -> list.add(m));
+        return list;
     }
 }
