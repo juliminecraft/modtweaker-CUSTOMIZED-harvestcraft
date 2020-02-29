@@ -31,7 +31,6 @@ public class ShippingBin extends ShippingBinItems {
 
     @ZenMethod
     public static void addAll(IOreDictEntry oredictentry, IItemStack currency, int price){
-        oredictentry.getItems().forEach(i -> CraftTweakerAPI.logInfo(i.getName()));
         oredictentry.getItems().forEach(i -> add(i, currency, price));
     }
 
