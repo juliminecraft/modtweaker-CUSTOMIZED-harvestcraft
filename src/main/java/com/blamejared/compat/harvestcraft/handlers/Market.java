@@ -26,8 +26,6 @@ import net.minecraft.item.ItemStack;
 public class Market extends MarketItems {
 
     protected static final String name = "HarvestCraft Market";
-    private ArrayList<MarketData> additions = new ArrayList<MarketData>();
-    private ArrayList<MarketData> removals = new ArrayList<MarketData>();
     
     @ZenMethod
     public static void addAll(IOreDictEntry oredictentry, IItemStack currency, int price){
@@ -78,11 +76,13 @@ public class Market extends MarketItems {
         
         @Override
         public void apply() {
+            ArrayList<MarketData> newList = new ArrayList<MarketData>();
             for(MarketData marketData : this.list) {
                 if(!marketData.getItem().getItem().equals(output.getItem())) {
-                    items.remove(marketData);
+                    newList.add(marketData);
                 }
             }
+            items = newList;
         }
         
         @Override
@@ -113,7 +113,6 @@ public class Market extends MarketItems {
         }
     }
 
-    
     private static List<MarketData> createList()
     {
         List<MarketData> list = new ArrayList<>();
