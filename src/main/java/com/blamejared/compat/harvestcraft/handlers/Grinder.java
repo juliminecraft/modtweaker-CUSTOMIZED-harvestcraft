@@ -14,7 +14,6 @@ import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
-import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.oredict.IOreDictEntry;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -73,11 +72,12 @@ public class Grinder extends GrinderRecipes {
         protected Remove(List<HarvestCraftContainerRecipe> recipeList, ItemStack input) {
             super(Grinder.name, recipeList);
             recipes.add(new HarvestCraftContainerRecipe(input, input, input));
+            this.input = new ItemStack(input.getItem(), 1, 32767);
         }
         
         @Override
         public void apply() {
-            grindingList.remove(recipes.getFirst().getInput());            
+            grindingList = Helper.createNewListExcept(grindingList,input);
         }
         
         @Override

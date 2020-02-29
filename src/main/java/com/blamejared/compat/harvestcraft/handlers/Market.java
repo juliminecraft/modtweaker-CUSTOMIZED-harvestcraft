@@ -3,13 +3,12 @@ package com.blamejared.compat.harvestcraft.handlers;
 import static com.blamejared.mtlib.helpers.InputHelper.toStack;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import com.blamejared.ModTweaker;
-import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseListAddition;
 import com.blamejared.mtlib.utils.BaseListRemoval;
 
-import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
@@ -77,9 +76,10 @@ public class Market extends MarketItems {
         
         @Override
         public void apply() {
+            ArrayList<MarketData> newList = new ArrayList<MarketData>();
             for(MarketData marketData : this.list) {
-                if(marketData.getItem().equals(output)) {                    
-                    items.remove(marketData);
+                if(!marketData.getItem().equals(output)) {                    
+                    newList.add(marketData);
                 }
             }
         }

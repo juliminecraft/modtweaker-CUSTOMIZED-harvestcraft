@@ -3,6 +3,7 @@ package com.blamejared.compat.harvestcraft.handlers;
 import static com.blamejared.mtlib.helpers.InputHelper.toStack;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import com.blamejared.ModTweaker;
 import com.blamejared.mtlib.helpers.LogHelper;
@@ -30,6 +31,7 @@ public class ShippingBin extends ShippingBinItems {
 
     @ZenMethod
     public static void addAll(IOreDictEntry oredictentry, IItemStack currency, int price){
+        oredictentry.getItems().forEach(i -> CraftTweakerAPI.logInfo(i.getName()));
         oredictentry.getItems().forEach(i -> add(i, currency, price));
     }
 
@@ -77,11 +79,13 @@ public class ShippingBin extends ShippingBinItems {
         
         @Override
         public void apply() {
+            ArrayList<ShippingBinData> newList = new ArrayList<ShippingBinData>();
             for(ShippingBinData shippingBinData : this.list) {
-                if(shippingBinData.getItem().equals(output)) {
-                    items.remove(shippingBinData);
+                if(!shippingBinData.getItem().equals(output)) {
+                    newList.add(shippingBinData);
                 }
             }
+            items = newList;
         }
         
         @Override

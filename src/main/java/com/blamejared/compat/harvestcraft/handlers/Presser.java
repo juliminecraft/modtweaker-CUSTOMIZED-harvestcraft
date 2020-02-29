@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import com.blamejared.ModTweaker;
 import com.blamejared.compat.harvestcraft.HarvestCraftContainerRecipe;
-import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseListAddition;
 import com.blamejared.mtlib.utils.BaseListRemoval;
 
@@ -73,11 +72,12 @@ public class Presser extends PresserRecipes {
         protected Remove(List<HarvestCraftContainerRecipe> recipeList, ItemStack input) {
             super(Presser.name, recipeList);
             recipes.add(new HarvestCraftContainerRecipe(input, input, input));
+            this.input = input;
         }
         
         @Override
         public void apply() {            
-            pressingList.remove(recipes.getFirst().getInput());
+            pressingList = Helper.createNewListExcept(pressingList, input);
         }
         
         @Override

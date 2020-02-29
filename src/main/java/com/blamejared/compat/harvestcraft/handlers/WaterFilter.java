@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import com.blamejared.ModTweaker;
 import com.blamejared.compat.harvestcraft.HarvestCraftContainerRecipe;
-import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseListAddition;
 import com.blamejared.mtlib.utils.BaseListRemoval;
 
@@ -68,15 +67,17 @@ public class WaterFilter extends WaterFilterRecipes {
     }
 
     private static class Remove extends BaseListRemoval<HarvestCraftContainerRecipe> {
-        
+        ItemStack input;
+
         protected Remove(List<HarvestCraftContainerRecipe> recipeList, ItemStack input) {
             super(WaterFilter.name, recipeList);
             recipes.add(new HarvestCraftContainerRecipe(input, input, input));
+            this.input = input;
         }
         
         @Override
         public void apply() {
-            waterfilterList.remove(recipes.getFirst().getInput());
+            waterfilterList = Helper.createNewListExcept(waterfilterList, input);
         }
         
         @Override
