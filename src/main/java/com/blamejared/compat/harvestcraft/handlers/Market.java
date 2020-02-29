@@ -78,7 +78,7 @@ public class Market extends MarketItems {
         public void apply() {
             ArrayList<MarketData> newList = new ArrayList<MarketData>();
             for(MarketData marketData : this.list) {
-                if(!marketData.getItem().equals(output)) {                    
+                if(!marketData.getItem().getItem().equals(output.getItem())) {
                     newList.add(marketData);
                 }
             }

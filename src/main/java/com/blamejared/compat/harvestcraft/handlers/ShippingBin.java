@@ -80,7 +80,7 @@ public class ShippingBin extends ShippingBinItems {
         public void apply() {
             ArrayList<ShippingBinData> newList = new ArrayList<ShippingBinData>();
             for(ShippingBinData shippingBinData : this.list) {
-                if(!shippingBinData.getItem().equals(output)) {
+                if(!shippingBinData.getItem().getItem().equals(output.getItem())) {
                     newList.add(shippingBinData);
                 }
             }
