@@ -151,7 +151,7 @@ github {
     token = project.githubToken
     tagName = project.version
     targetCommitish = 'master'
-    name = 'v1.0.1alpha'
+    name = 'v.'+project.version
     body = """# ModTweaker Customized Harvestcraft
 Fixed removeRecipe and remove Methods
 """
