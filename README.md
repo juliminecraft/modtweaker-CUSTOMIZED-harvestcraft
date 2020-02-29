@@ -25,14 +25,14 @@ WaterFilter:
 
 Market:
 ----------
-- mods.harvestcraft.Market.add(IItemStack input, IItemStack currency, int price) 
-- mods.harvestcraft.Market.remove(IItemStack input);
+- mods.harvestcraft.Market.add(IItemStack output, IItemStack currency, int price) 
+- mods.harvestcraft.Market.remove(IItemStack output);
 - mods.harvestcraft.Market.removeAll();
 
 ShippingBin:
 ----------
-- mods.harvestcraft.ShippingBin.add(IItemStack input, IItemStack currency, int price) 
-- mods.harvestcraft.ShippingBin.remove(IItemStack input);
+- mods.harvestcraft.ShippingBin.add(IItemStack output, IItemStack currency, int price) 
+- mods.harvestcraft.ShippingBin.remove(IItemStack output);
 - mods.harvestcraft.ShippingBin.removeAll();
 
 

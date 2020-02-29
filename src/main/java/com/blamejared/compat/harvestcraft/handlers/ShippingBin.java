@@ -28,14 +28,14 @@ public class ShippingBin extends ShippingBinItems {
     protected static final String name = "HarvestCraft ShippingBin";
 
     @ZenMethod
-    public static void add(IItemStack input, IItemStack currency, int price) {
-        ShippingBinData recipe = new ShippingBinData(toStack(input), toStack(currency), price);
+    public static void add(IItemStack output, IItemStack currency, int price) {
+        ShippingBinData recipe = new ShippingBinData(toStack(output), toStack(currency), price);
         ModTweaker.LATE_ADDITIONS.add(new Add(items, recipe));
     }
     
     @ZenMethod
-    public static void removeRecipe(IItemStack input) {
-        ModTweaker.LATE_REMOVALS.add(new Remove(items, toStack(input)));
+    public static void remove(IItemStack output) {
+        ModTweaker.LATE_REMOVALS.add(new Remove(items, toStack(output)));
     }
 
     @ZenMethod
@@ -44,45 +44,42 @@ public class ShippingBin extends ShippingBinItems {
     }
 
     private static class Add extends BaseListAddition<ShippingBinData>{
-        public Add(List<ShippingBinData> recipeList, ShippingBinData recipe) {
+        public Add(List<ShippingBinData> recipeList, ShippingBinData shippingBinData) {
             super(ShippingBin.name, recipeList);
-            this.recipes.add(recipe);
+            this.recipes.add(shippingBinData);
         }
 
         @Override
         public void apply() {            
             items.add(recipes.getFirst());
-            CraftTweakerAPI.getLogger().logInfo(this.describe());
         }
         
         @Override
         public String getRecipeInfo(ShippingBinData recipe) {
-            return LogHelper.getStackDescription(recipe.getItem());
+            return recipe.getItem().getDisplayName();
         }
     }
 
     private static class Remove extends BaseListRemoval<ShippingBinData> {
-        private ItemStack input;
+        private ItemStack output;
         
-        protected Remove(List<ShippingBinData> recipeList, ItemStack input) {
+        protected Remove(List<ShippingBinData> recipeList, ItemStack output) {
             super(ShippingBin.name, recipeList);
-            this.input = input;
+            this.output = output;
         }
         
         @Override
         public void apply() {
-            for(ShippingBinData recipe : this.list) {
-                if(recipe.getItem().equals(input)) {
-                    recipes.add(recipe);
-                    items.remove(recipe);
+            for(ShippingBinData shippingBinData : this.list) {
+                if(shippingBinData.getItem().equals(output)) {
+                    items.remove(shippingBinData);
                 }
             }
-            CraftTweakerAPI.getLogger().logInfo(this.describe());
         }
         
         @Override
-        protected String getRecipeInfo(ShippingBinData recipe) {
-            return LogHelper.getStackDescription(recipe.getItem());
+        protected String getRecipeInfo(ShippingBinData shippingBinData) {
+            return shippingBinData.getItem().getDisplayName();
         }
     }
 
@@ -99,8 +96,8 @@ public class ShippingBin extends ShippingBinItems {
         } 
 
         @Override
-        protected String getRecipeInfo(ShippingBinData recipe) {
-            return LogHelper.getStackDescription(recipe.getItem());
+        protected String getRecipeInfo(ShippingBinData shippingBinData) {
+            return shippingBinData.getItem().getDisplayName();
         }
     }
 }

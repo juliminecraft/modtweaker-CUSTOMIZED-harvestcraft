@@ -53,37 +53,29 @@ public class WaterFilter extends WaterFilterRecipes {
         @Override
         public void apply() {            
             waterfilterList.put(recipes.getFirst().getInput(), recipes.getFirst().getOutputs());
-            CraftTweakerAPI.getLogger().logInfo(this.describe());
         }
         
         @Override
         public String getRecipeInfo(HarvestCraftContainerRecipe recipe) {
-            return LogHelper.getStackDescription(recipe.getInput());
+            return recipe.getInput().getDisplayName();
         }
     }
 
     private static class Remove extends BaseListRemoval<HarvestCraftContainerRecipe> {
-        private ItemStack input;
         
         protected Remove(List<HarvestCraftContainerRecipe> recipeList, ItemStack input) {
             super(WaterFilter.name, recipeList);
-            this.input = input;
+            recipes.add(new HarvestCraftContainerRecipe(input, input, input));
         }
         
         @Override
         public void apply() {
-            for(HarvestCraftContainerRecipe recipe : this.list) {
-                if(recipe.getInput().equals(input)) {
-                    recipes.add(recipe);
-                    waterfilterList.remove(recipe.getInput());
-                }
-            }
-            CraftTweakerAPI.getLogger().logInfo(this.describe());
+            waterfilterList.remove(recipes.getFirst().getInput());
         }
         
         @Override
         protected String getRecipeInfo(HarvestCraftContainerRecipe recipe) {
-            return LogHelper.getStackDescription(recipe.getInput());
+            return recipe.getInput().getDisplayName();
         }
     }
 
@@ -101,7 +93,7 @@ public class WaterFilter extends WaterFilterRecipes {
 
         @Override
         protected String getRecipeInfo(HarvestCraftContainerRecipe recipe) {
-            return LogHelper.getStackDescription(recipe.getInput());
+            return recipe.getInput().getDisplayName();
         }
     }
 

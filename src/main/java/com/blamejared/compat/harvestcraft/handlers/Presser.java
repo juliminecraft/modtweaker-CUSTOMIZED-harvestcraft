@@ -47,7 +47,7 @@ public class Presser extends PresserRecipes {
     private static class Add extends BaseListAddition<HarvestCraftContainerRecipe>{
         public Add(List<HarvestCraftContainerRecipe> recipeList, HarvestCraftContainerRecipe recipe) {
             super(Presser.name, recipeList);
-            this.recipes.add(recipe);
+            recipes.add(recipe);
         }
 
         @Override
@@ -57,7 +57,7 @@ public class Presser extends PresserRecipes {
         
         @Override
         public String getRecipeInfo(HarvestCraftContainerRecipe recipe) {
-            return LogHelper.getStackDescription(recipe.getInput());
+            return recipe.getInput().getDisplayName();
         }
     }
 
@@ -66,22 +66,17 @@ public class Presser extends PresserRecipes {
         
         protected Remove(List<HarvestCraftContainerRecipe> recipeList, ItemStack input) {
             super(Presser.name, recipeList);
-            this.input = input;
+            recipes.add(new HarvestCraftContainerRecipe(input, input, input));
         }
         
         @Override
-        public void apply() {
-            for(HarvestCraftContainerRecipe recipe : this.list) {
-                if(recipe.getInput().equals(input)) {
-                    recipes.add(recipe);
-                    pressingList.remove(recipe.getInput());
-                }
-            }
+        public void apply() {            
+            pressingList.remove(recipes.getFirst().getInput());
         }
         
         @Override
         protected String getRecipeInfo(HarvestCraftContainerRecipe recipe) {
-            return LogHelper.getStackDescription(recipe.getInput());
+            return recipe.getInput().getDisplayName();
         }
     }
 
@@ -99,7 +94,7 @@ public class Presser extends PresserRecipes {
 
         @Override
         protected String getRecipeInfo(HarvestCraftContainerRecipe recipe) {
-            return LogHelper.getStackDescription(recipe.getInput());
+            return recipe.getInput().getDisplayName();
         }
     }
 

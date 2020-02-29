@@ -28,14 +28,14 @@ public class Market extends MarketItems {
     protected static final String name = "HarvestCraft Market";
 
     @ZenMethod
-    public static void add(IItemStack input, IItemStack currency, int price) {
-        MarketData recipe = new MarketData(toStack(input), toStack(currency), price);
+    public static void add(IItemStack output, IItemStack currency, int price) {
+        MarketData recipe = new MarketData(toStack(output), toStack(currency), price);
         ModTweaker.LATE_ADDITIONS.add(new Add(items, recipe));
     }
     
     @ZenMethod
-    public static void removeRecipe(IItemStack input) {
-        ModTweaker.LATE_REMOVALS.add(new Remove(items, toStack(input)));
+    public static void remove(IItemStack output) {
+        ModTweaker.LATE_REMOVALS.add(new Remove(items, toStack(output)));
     }
 
     @ZenMethod
@@ -52,37 +52,34 @@ public class Market extends MarketItems {
         @Override
         public void apply() {            
             items.add(recipes.getFirst());
-            CraftTweakerAPI.getLogger().logInfo(this.describe());
         }
         
         @Override
         public String getRecipeInfo(MarketData recipe) {
-            return LogHelper.getStackDescription(recipe.getItem());
+            return recipe.getItem().getDisplayName();
         }
     }
 
     private static class Remove extends BaseListRemoval<MarketData> {
-        private ItemStack input;
-        
-        protected Remove(List<MarketData> recipeList, ItemStack input) {
+        private ItemStack output;
+
+        protected Remove(List<MarketData> recipeList, ItemStack output) {
             super(Market.name, recipeList);
-            this.input = input;
+            this.output = output;
         }
         
         @Override
         public void apply() {
-            for(MarketData recipe : this.list) {
-                if(recipe.getItem().equals(input)) {
-                    recipes.add(recipe);
-                    items.remove(recipe);
+            for(MarketData marketData : this.list) {
+                if(marketData.getItem().equals(output)) {                    
+                    items.remove(marketData);
                 }
             }
-            CraftTweakerAPI.getLogger().logInfo(this.describe());
         }
         
         @Override
         protected String getRecipeInfo(MarketData recipe) {
-            return LogHelper.getStackDescription(recipe.getItem());
+            return recipe.getItem().getDisplayName();
         }
     }
 

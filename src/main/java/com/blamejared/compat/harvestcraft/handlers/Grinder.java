@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import com.blamejared.ModTweaker;
 import com.blamejared.compat.harvestcraft.HarvestCraftContainerRecipe;
-import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseListAddition;
 import com.blamejared.mtlib.utils.BaseListRemoval;
 
@@ -52,13 +51,12 @@ public class Grinder extends GrinderRecipes {
 
         @Override
         public void apply() {            
-            grindingList.put(recipes.getFirst().getInput(), recipes.getFirst().getOutputs());
-            CraftTweakerAPI.getLogger().logInfo(this.describe());
+            grindingList.put(recipes.getFirst().getInput(), recipes.getFirst().getOutputs());            
         }
         
         @Override
         public String getRecipeInfo(HarvestCraftContainerRecipe recipe) {
-            return LogHelper.getStackDescription(recipe.getInput());
+            return recipe.getInput().getDisplayName();
         }
     }
 
@@ -67,23 +65,17 @@ public class Grinder extends GrinderRecipes {
         
         protected Remove(List<HarvestCraftContainerRecipe> recipeList, ItemStack input) {
             super(Grinder.name, recipeList);
-            this.input = input;
+            recipes.add(new HarvestCraftContainerRecipe(input, input, input));
         }
         
         @Override
         public void apply() {
-            for(HarvestCraftContainerRecipe recipe : this.list) {
-                if(recipe.getInput().equals(input)) {
-                    recipes.add(recipe);
-                    grindingList.remove(recipe.getInput());
-                }
-            }
-            CraftTweakerAPI.getLogger().logInfo(this.describe());
+            grindingList.remove(recipes.getFirst().getInput());            
         }
         
         @Override
         protected String getRecipeInfo(HarvestCraftContainerRecipe recipe) {
-            return LogHelper.getStackDescription(recipe.getInput());
+            return recipe.getInput().getDisplayName();
         }
     }
 
@@ -101,7 +93,7 @@ public class Grinder extends GrinderRecipes {
 
         @Override
         protected String getRecipeInfo(HarvestCraftContainerRecipe recipe) {
-            return LogHelper.getStackDescription(recipe.getInput());
+            return recipe.getInput().getDisplayName();
         }
     }
 
