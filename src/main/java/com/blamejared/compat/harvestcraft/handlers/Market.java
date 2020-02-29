@@ -13,6 +13,7 @@ import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.oredict.IOreDictEntry;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import com.pam.harvestcraft.tileentities.MarketData;
@@ -26,6 +27,11 @@ import net.minecraft.item.ItemStack;
 public class Market extends MarketItems {
 
     protected static final String name = "HarvestCraft Market";
+    
+    @ZenMethod
+    public static void addAll(IOreDictEntry oredictentry, IItemStack currency, int price){
+        oredictentry.getItems().forEach(i -> add(i, currency, price));
+    }
 
     @ZenMethod
     public static void add(IItemStack output, IItemStack currency, int price) {

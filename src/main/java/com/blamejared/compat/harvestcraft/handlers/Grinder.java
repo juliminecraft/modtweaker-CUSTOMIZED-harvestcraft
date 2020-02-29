@@ -14,6 +14,8 @@ import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.oredict.IOreDictEntry;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import com.pam.harvestcraft.item.GrinderRecipes;
@@ -26,6 +28,11 @@ import net.minecraft.item.ItemStack;
 public class Grinder extends GrinderRecipes {
 
     protected static final String name = "HarvestCraft Grinder";
+
+    @ZenMethod
+    public static void addAll(IOreDictEntry oredictentry, IItemStack outputleft, IItemStack outputright){
+        oredictentry.getItems().forEach(i -> addRecipe(i, outputleft, outputright));
+    }
 
     @ZenMethod
     public static void addRecipe(IItemStack input, IItemStack outputleft, IItemStack outputright) {
