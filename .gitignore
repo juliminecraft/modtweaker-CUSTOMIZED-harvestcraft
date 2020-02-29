@@ -29,6 +29,7 @@
 /.gradle
 /build
 /classes/
+gradle.properties
 # Eclipse
 /.classpath
 /.project
@@ -55,3 +56,4 @@
 /common
 
 *.launch
+gradle.properties

@@ -148,7 +148,7 @@ processResources {
 github {
     owner = 'juliminecraft'
     repo = 'modtweaker-CUSTOMIZED-harvestcraft'
-    token = 'c006a27b6624de1ceae001801a32cc867f264f35'
+    token = project.githubToken
     tagName = project.version
     targetCommitish = 'master'
     name = 'v1.0.1alpha'
