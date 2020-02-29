@@ -82,6 +82,7 @@ public class Market extends MarketItems {
                     newList.add(marketData);
                 }
             }
+            items = newList;
         }
         
         @Override
