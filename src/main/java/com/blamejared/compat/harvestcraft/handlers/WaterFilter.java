@@ -26,7 +26,7 @@ import net.minecraft.item.ItemStack;
 @ZenRegister
 public class WaterFilter extends WaterFilterRecipes {
 
-    protected static final String name = "HarvestCraft WaterFilter Recipes";
+    protected static final String name = "HarvestCraft WaterFilter";
 
     @ZenMethod
     public static void addRecipe(IItemStack input, IItemStack outputleft, IItemStack outputright) {

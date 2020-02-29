@@ -55,8 +55,8 @@ public class Market extends MarketItems {
         }
         
         @Override
-        public String getRecipeInfo(MarketData recipe) {
-            return recipe.getItem().getDisplayName();
+        public String getRecipeInfo(MarketData marketData) {
+            return marketData.getItem().getDisplayName();
         }
     }
 
@@ -65,6 +65,7 @@ public class Market extends MarketItems {
 
         protected Remove(List<MarketData> recipeList, ItemStack output) {
             super(Market.name, recipeList);
+            this.recipes.add(new MarketData(output, output, 1));
             this.output = output;
         }
         
@@ -78,26 +79,30 @@ public class Market extends MarketItems {
         }
         
         @Override
-        protected String getRecipeInfo(MarketData recipe) {
-            return recipe.getItem().getDisplayName();
+        protected String getRecipeInfo(MarketData marketData) {
+            return marketData.getItem().getDisplayName();
         }
     }
 
     private static class RemoveAll extends BaseListRemoval<MarketData> {
         protected RemoveAll(List<MarketData> recipeList) {
             super(Market.name, recipeList);
-            this.recipes.addAll(recipeList);
         }
 
         @Override
         public void apply(){
             items.clear();
-            CraftTweakerAPI.getLogger().logInfo("Removed all "+Market.name+"recipies");
-        } 
+        }
+
+
+        @Override 
+        public String describe() {
+            return "Removed all "+Market.name+"recipies";
+        }
 
         @Override
-        protected String getRecipeInfo(MarketData recipe) {
-            return LogHelper.getStackDescription(recipe.getItem());
+        protected String getRecipeInfo(MarketData marketData) {
+            return marketData.getItem().getDisplayName();
         }
     }
 }

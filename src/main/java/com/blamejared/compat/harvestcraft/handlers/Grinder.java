@@ -25,7 +25,7 @@ import net.minecraft.item.ItemStack;
 @ZenRegister
 public class Grinder extends GrinderRecipes {
 
-    protected static final String name = "HarvestCraft Grinder Recipes";
+    protected static final String name = "HarvestCraft Grinder";
 
     @ZenMethod
     public static void addRecipe(IItemStack input, IItemStack outputleft, IItemStack outputright) {

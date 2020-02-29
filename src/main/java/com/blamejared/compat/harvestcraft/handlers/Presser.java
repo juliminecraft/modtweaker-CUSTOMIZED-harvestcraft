@@ -26,7 +26,7 @@ import net.minecraft.item.ItemStack;
 @ZenRegister
 public class Presser extends PresserRecipes {
 
-    protected static final String name = "HarvestCraft Presser Recipes";
+    protected static final String name = "HarvestCraft Presser";
 
     @ZenMethod
     public static void addRecipe(IItemStack input, IItemStack outputleft, IItemStack outputright) {

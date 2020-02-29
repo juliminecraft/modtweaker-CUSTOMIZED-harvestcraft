@@ -65,6 +65,7 @@ public class ShippingBin extends ShippingBinItems {
         
         protected Remove(List<ShippingBinData> recipeList, ItemStack output) {
             super(ShippingBin.name, recipeList);
+            this.recipes.add(new ShippingBinData(output, output, 1));
             this.output = output;
         }
         
@@ -93,7 +94,12 @@ public class ShippingBin extends ShippingBinItems {
         public void apply(){
             items.clear();
             CraftTweakerAPI.getLogger().logInfo("Removed all "+ShippingBin.name+"recipies");
-        } 
+        }
+                
+        @Override 
+        public String describe() {
+            return "Removed all "+ShippingBin.name+"recipies";
+        }
 
         @Override
         protected String getRecipeInfo(ShippingBinData shippingBinData) {
